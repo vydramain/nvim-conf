@@ -1,6 +1,6 @@
 
 " == VIM PLUG ================================
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.nvim/plugged')
 "------------------------ COC ------------------------
 " coc for tslinting, auto complete and prettier
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
