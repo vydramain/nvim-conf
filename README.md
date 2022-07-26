@@ -24,7 +24,7 @@ The following content is `init.vim` temp-file content. The description is in the
 
 ```
 " == VIM PLUG ================================
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.nvim/plugged')
 "------------------------ COC ------------------------
 " coc for tslinting, auto complete and prettier
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -58,6 +58,7 @@ au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 ```
 
 For the record:
+ - Do not forget execute `yarn install` for building `build/index.js`
  - `:CocConfig` command runs coc configuration.
  - TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`
  - Default autocomplete is annoying since it’s controlled by arrow keys to select. Read [completion with sources](https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources) to configure it to tab.
