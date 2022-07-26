@@ -12,38 +12,52 @@ How to setup NeoVim for React and Typescript development:
 
 #### NeoVim Plugin Manager:
 
-Well, Vim and NeoVim have multiple communities developed plugin managers. Good humans ❤. With plugins, it’s so easy to install pretty much any plugin (I don’t know if there are not compatible once). So easy to back up the configuration with all installed plugins (save init.vim somewhere it’s that easy and you got all the plugins and their configurations in that).
-
-   - Download [vim-plug](https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim) file.
-   - Place the plugin inside autoload folder: `/home/<user_folder>/.config/nvim/autoload/plug.vim`
+- Download [vim-plug](https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim) file.
+- Place the plugin inside autoload folder: `/home/<user_folder>/.config/nvim/autoload/plug.vim`
 
 #### Required plugins:
 
-Add the following content to init.vim file we previously created. The description is in the comment however I highly recommend you to read the wiki in GitHub (You can download my complete configuration here if you are interested)
+The following content is `init.vim` temp-file content. The description is in the comment. Highly recommend to read the wiki in [GitHub](https://github.com/neovim/neovim/wiki/Configuration) (For downloading s1n7ax's [complete configuration](https://github.com/s1n7ax/dotvim))
 
 ```
 " == VIM PLUG ================================
 call plug#begin('~/.vim/plugged')
 "------------------------ COC ------------------------
 " coc for tslinting, auto complete and prettier
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}" coc extensions
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']"------------------------ VIM TSX ------------------------
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+
+" coc extensions
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
+
+"------------------------ VIM TSX ------------------------
 " by default, if you open tsx file, neovim does not show syntax colors
 " vim-tsx will do all the coloring for jsx in the .tsx file
-Plug 'ianks/vim-tsx'"------------------------ VIM TSX ------------------------
+Plug 'ianks/vim-tsx'
+
+"------------------------ VIM TSX ------------------------
 " by default, if you open tsx file, neovim does not show syntax colors
 " typescript-vim will do all the coloring for typescript keywords
-Plug 'leafgarland/typescript-vim'"------------------------ THEME ------------------------
+Plug 'leafgarland/typescript-vim'
+
+"------------------------ THEME ------------------------
 " most importantly you need a good color scheme to write good code :D
-Plug 'dikiaap/minimalist'call plug#end()
-" == VIMPLUG END ================================" == AUTOCMD ================================ 
+Plug 'dikiaap/minimalist'
+
+call plug#end()  
+" == VIMPLUG END ================================
+                                                
+" == AUTOCMD ================================ 
 " by default .ts file are not identified as typescript and .tsx files are not
 " identified as typescript react file, so add following
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
-" == AUTOCMD END ================================
+" == AUTOCMD END ================================ 
 ```
 
+For the record:
+ - `:CocConfig` command runs coc configuration.
+ - TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`
+ - Default autocomplete is annoying since it’s controlled by arrow keys to select. Read [completion with sources](https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources) to configure it to tab.
 
 
 In inspiration by this [article](https://medium.com/@s1n7ax/neovim-for-typescript-react-development-fdc7082c8a78)
