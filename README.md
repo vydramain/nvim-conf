@@ -2,6 +2,9 @@
 My personal nvim configuration for quick start on another machine: 
 How to setup NeoVim for React and Typescript development:
 
+## Descripions:
+Files from this repository are keeping in the `~/.config/nvim` catalog.
+
 ## Prerequisites:
 - [Neovim](https://neovim.io/)
 - [Node](https://nodejs.org/en/) (coc extension require a javascript runtime to do the job)
