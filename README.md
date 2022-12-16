@@ -48,7 +48,7 @@ Before install plugins and start to use them intall dependencies.
 For Fedora:
 
 ```console
-# sudo dnf isntall python-neovim
+$ sudo dnf isntall python-neovim
 ```
 
 #### How to debug note:
