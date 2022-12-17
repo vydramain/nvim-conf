@@ -51,6 +51,17 @@ For Fedora:
 $ sudo dnf isntall python-neovim
 ```
 
+Also do not forget install `build/index.js` builds:
+
+```console
+$ yarn install
+```
+
+#### Help records:
+ - `:CocConfig` command runs coc configuration.
+ - TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`
+ - Default autocomplete is annoying since it’s controlled by arrow keys to select. Read [completion with sources](https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources) to configure it to tab.
+
 #### How to debug note:
 
 For each project we need to create vimspector.json which contains information about how to start a debugger session. This file is pretty simple, and you will usually just copy it between your projects with minimal changes. Here is an example content:
