@@ -51,6 +51,12 @@ For Fedora:
 $ sudo dnf isntall python-neovim
 ```
 
+For Debian:
+
+```console
+$ sudo apt install python3-neovim
+```
+
 Also do not forget install `build/index.js` builds:
 
 ```console
