@@ -60,6 +60,11 @@ Plug 'scrooloose/nerdtree'
 " Switching between source and header files is another common operation when working with C++.
 Plug 'derekwyatt/vim-fswitch'
 
+" ----------------------- CTAGS --------------------------
+" Dependency for vista.vim and a convenient indexing tool that allows you to go to symbol definition
+" from your project using tags database.
+Plug 'universal-ctags/ctags'
+
 " ------------------- CODE STRUCTURE ---------------------
 " Vista.vim get ability to browse the structure of the current source file.
 " What classes, functions, macroses are defined there.
@@ -181,6 +186,13 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
+" 
+set tags=./tags;
+let g:gutentags_ctags_exclude_wildignore = 1
+let g:gutentags_ctags_exclude = [
+  \'node_modules', '_build', 'build', 'CMakeFiles', '.mypy_cache', 'venv',
+  \'*.md', '*.tex', '*.css', '*.html', '*.json', '*.xml', '*.xmls', '*.ui']
 
 " Add a convenient key binding to toggle Vista split:
 nnoremap <silent> <A-6> :Vista!!<CR>
