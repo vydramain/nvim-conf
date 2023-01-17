@@ -56,6 +56,10 @@ Plug 'dikiaap/minimalist'
 " In this post, I will summarize some of its configurations and usages.
 Plug 'scrooloose/nerdtree'
 
+" ------------------- OPEN-BROWSER -----------------------
+"
+Plug 'tyru/open-browser.vim'
+
 " -------------- HEADER FILES SWITCHING ------------------
 " Switching between source and header files is another common operation when working with C++.
 Plug 'derekwyatt/vim-fswitch'
@@ -111,8 +115,12 @@ let g:UltiSnipsEditSplit="vertical"
 Plug 'bfrg/vim-cpp-modern'
 
 " --------------- MARKDOWN-PREVIEW.NVIM ------------------
-"  Pluging adding preview for markdown files
- Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+" Pluging adding preview for markdown files
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+" ----------------- NVIM-BLAME-LINE ----------------------
+" A small plugin that uses neovims virtual text to print git blame info at the end of the current line.
+Plug 'tveskag/nvim-blame-line'
 
 call plug#end()
 " == VIMPLUG END =========================================
@@ -355,3 +363,7 @@ let g:mkdp_theme = 'dark'
 nmap <C-m> <Plug>MarkdownPreview
 nmap <C-m> <Plug>MarkdownPreviewStop
 nmap <A-m> <Plug>MarkdownPreviewToggle
+
+" Keybinding blame line
+nnoremap <silent> <leader>eb :ToggleBlameLine<CR>
+nnoremap <silent> <leader>db :DisableBlameLine<CR>
