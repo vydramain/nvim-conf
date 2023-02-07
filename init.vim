@@ -122,6 +122,14 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " A small plugin that uses neovims virtual text to print git blame info at the end of the current line.
 Plug 'tveskag/nvim-blame-line'
 
+" ------------------- FZF <3 VIM -------------------------
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+
+" --------------------- ack.vim --------------------------
+Plug 'numkil/ag.nvim' 
+
 call plug#end()
 " == VIMPLUG END =========================================
 
