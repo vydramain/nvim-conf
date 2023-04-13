@@ -1,11 +1,23 @@
-:set number                                              " Show line numbers
-:set relativenumber                                      " Show relative row numbers of current
-:set autoindent                                          " Auto-indent new lines
-:set tabstop=4
-:set shiftwidth=4
+:set number                                            " Show line numbers
+:set relativenumber                                    " Show relative row numbers of current
+:set autoindent                                        " Auto-indent new lines
+:set tabstop=2
 :set smarttab
-:set softtabstop=4
 :set mouse=a
+
+:set confirm                                           " Prompt confirmation dialogs
+:set autoindent	                                       " Auto-indent new lines
+:set cindent	                                         " Use 'C' style program indenting
+:set expandtab	                                       " Use spaces instead of tabs
+:set shiftwidth=2	                                     " Number of auto-indent spaces
+:set smartindent	                                     " Enable smart-indent
+:set smarttab	                                         " Enable smart-tabs
+:set softtabstop=2	                                   " Number of spaces per Tab
+
+:set guicursor+=i:hor20-Cursor/lCursor                 " Set cursor type to underline for insert mode
+
+:highlight Cursor guifg=white guibg=black               " Set cursor selection colors
+:highlight lCursor guifg=white guibg=steelblue
 
 call plug#begin()
 
@@ -21,6 +33,7 @@ Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
+Plug 'tveskag/nvim-blame-line' " A small plugin that uses neovims virtual text to print git blame info at the end of the current line.
 
 set encoding=UTF-8
 
@@ -30,6 +43,10 @@ nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR>
+
+" Keybinding blame line
+nnoremap <silent> <leader>eb :ToggleBlameLine<CR>
+nnoremap <silent> <leader>db :DisableBlameLine<CR>
 
 nmap <F8> :TagbarToggle<CR>
 
