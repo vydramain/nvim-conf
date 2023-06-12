@@ -48,24 +48,30 @@ Before install plugins and start to use them intall dependencies.
 For Fedora:
 
 ```console
-$ sudo dnf isntall python-neovim
+sudo dnf isntall python-neovim
 ```
 
 For Debian:
 
 ```console
-$ sudo apt install python3-neovim
+sudo apt install python3-neovim
 ```
 
-Also do not forget install `build/index.js` builds:
+After install plugins you need to install coc.nvim's build. For that purpose go to the `~/.local/share/nvim/plugged/coc.nvim/build` and start yarn building process:
 
 ```console
-$ yarn install
+yarn install
+```
+
+#### Some extensions for coc.nvim:
+
+- TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`. For example, `[coc-prettier](https://github.com/neoclide/coc-prettier)`:
+```console
+:CocInstall coc-tsserver
 ```
 
 #### Help records:
  - `:CocConfig` command runs coc configuration.
- - TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`
  - Default autocomplete is annoying since it’s controlled by arrow keys to select. Read [completion with sources](https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources) to configure it to tab.
 
 #### How to debug note:
