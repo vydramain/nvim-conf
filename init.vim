@@ -41,6 +41,7 @@ Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'tveskag/nvim-blame-line' " A small plugin that uses neovims virtual text to print git blame info at the end of the current line.
 Plug 'numkil/ag.nvim' " A code searching tool similar to ack, with a focus on speed.
+Plug 'nvim-tree/nvim-web-devicons' " Font
 
 set encoding=UTF-8
 
@@ -54,6 +55,9 @@ nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR>
 " Keybinding blame line
 nnoremap <silent> <leader>eb :ToggleBlameLine<CR>
 nnoremap <silent> <leader>db :DisableBlameLine<CR>
+
+" To navigate the completion list:
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#next(1) : "\<S-Tab>"
 
 nmap <F8> :TagbarToggle<CR>
 
