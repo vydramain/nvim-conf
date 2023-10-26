@@ -87,6 +87,12 @@ For each project we need to create vimspector.json which contains information ab
 }
 ```
 
+### If you have issues with not recognizing headers
+
+Check ccls [FAQ](https://github.com/MaskRay/ccls/wiki/FAQ#some-cc-headers-are-not-recognized)
+
+Try to delete into the folder `/usr/lib/gcc/x86_64-linux-gnu/` all libraries with the largest version number than you use. 
+
 ---
 
 Inspirated by:
