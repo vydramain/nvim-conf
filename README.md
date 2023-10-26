@@ -95,3 +95,4 @@ Inspirated by:
  - [Using (neo)vim for C++ development](https://idie.ru/posts/vim-modern-cpp/) by idie
  - [How I'm able to take notes in mathematics lectures using LaTeX and Vim](https://castel.dev/post/lecture-notes-1/)
  - [NeoVim for Typescript + React Development](https://medium.com/@s1n7ax/neovim-for-typescript-react-development-fdc7082c8a78) by s1n7ax
+ - [coc for C++ setup](https://codevion.github.io/#!vim/coc.md)
