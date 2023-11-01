@@ -1,24 +1,21 @@
-:set number                                              " Show line numbers
-:set relativenumber                                      " Show relative row numbers of current
-:set autoindent                                          " Auto-indent new lines
-:set tabstop=2
-:set shiftwidth=2
-:set smarttab
-:set softtabstop=2
-:set mouse=a
-:set cindent																						 " Use 'C' style program indenting
-:set backspace=indent,eol,start	                         " Backspace behaviour
-:set guicursor+=n:hor20-Cursor/lCursor                   " Set cursor type to underline
-:set guicursor+=i:hor20-Cursor/lCursor
+set number                                                 " Show line numbers
+set relativenumber                                         " Show relative row numbers of current
+set autoindent                                             " Auto-indent new lines
+set tabstop=2
+set shiftwidth=2	                                          " Number of auto-indent spaces
+set softtabstop=2	                                        " Number of spaces per Tab
+set mouse=a
 
-:set confirm                                             " Prompt confirmation dialogs
-:set autoindent	                                         " Auto-indent new lines
-:set cindent	                                           " Use 'C' style program indenting
-:set expandtab	                                         " Use spaces instead of tabs
-:set shiftwidth=2	                                       " Number of auto-indent spaces
-:set smartindent	                                       " Enable smart-indent
-:set smarttab	                                           " Enable smart-tabs
-:set softtabstop=2	                                     " Number of spaces per Tab
+set confirm                                                " Prompt confirmation dialogs
+set autoindent	                                            " Auto-indent new lines
+set cindent	                                              " Use 'C' style program indenting
+set expandtab	                                            " Use spaces instead of tabs
+set smarttab	                                              " Enable smart-tabs
+set smartindent	                                          " Enable smart-indent
+
+set backspace=indent,eol,start	                            " Backspace behaviour
+set guicursor+=n:hor20-Cursor/lCursor                      " Set cursor type to underline
+set guicursor+=i:hor20-Cursor/lCursor                      " Set cursor type to underline for insert mode
 
 " Some servers have issues with backup files, see #649
 set nobackup
@@ -32,13 +29,13 @@ set updatetime=1000
 " diagnostics appear/become resolved
 set signcolumn=yes
 
-:set guicursor+=i:hor20-Cursor/lCursor                   " Set cursor type to underline for insert mode
-
-:highlight Cursor guifg=white guibg=black                " Set cursor selection colors
-:highlight lCursor guifg=white guibg=steelblue
+highlight Cursor guifg=white guibg=black                   " Set cursor selection colors
+highlight lCursor guifg=white guibg=steelblue
+highlight Normal ctermfg=white ctermbg=black               " Set background color
 
 call plug#begin()
 
+Plug 'https://github.com/NLKNguyen/papercolor-theme' " Theme
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
@@ -58,6 +55,11 @@ set encoding=UTF-8
 
 call plug#end()
 
+set background=dark
+" colorscheme papercolor
+colorscheme jellybeans
+
+
 nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
@@ -69,9 +71,7 @@ nnoremap <silent> <leader>db :DisableBlameLine<CR>
 
 nmap <F8> :TagbarToggle<CR>
 
-:set completeopt-=preview " For No Previews
-
-:colorscheme jellybeans
+set completeopt-=preview " For No Previews
 
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
