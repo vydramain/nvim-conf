@@ -63,6 +63,22 @@ Also do not forget install `build/index.js` builds:
 $ yarn install
 ```
 
+#### Do not forget to install Silver Searcher
+
+Depending on your Linux distribution, use one of the following methods to install The Silver Searcher.
+
+On Debian and Ubuntu, use the following command:
+
+```console
+$ sudo apt install silversearcher-ag
+```
+
+On AlmaLinux, CentOS 8 or later, and Fedora, use the following command:
+
+```console
+$ sudo dnf install the_silver_searcher
+```
+
 #### Help records:
  - `:CocConfig` command runs coc configuration.
  - TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`
