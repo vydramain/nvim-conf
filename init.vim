@@ -50,6 +50,7 @@ Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'tveskag/nvim-blame-line' " A small plugin that uses neovims virtual text to print git blame info at the end of the current line.
 Plug 'numkil/ag.nvim' " A code searching tool similar to ack, with a focus on speed.
+Plug 'sbdchd/neoformat' " A (Neo)vim plugin for formatting code.
 
 set encoding=UTF-8
 
@@ -219,3 +220,11 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" custom setting for clangformat
+let g:neoformat_cpp_clangformat = {
+    \ 'exe': 'clang-format',
+    \ 'args': ['--style="{IndentWidth: 4}"']
+\}
+let g:neoformat_enabled_cpp = ['clangformat']
+let g:neoformat_enabled_c = ['clangformat']
