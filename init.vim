@@ -35,19 +35,19 @@ highlight Normal ctermfg=white ctermbg=black               " Set background colo
 
 call plug#begin()
 
-Plug 'https://github.com/NLKNguyen/papercolor-theme' " Theme
-Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'https://github.com/preservim/nerdtree' " NerdTree
-Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
-Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
-Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
-Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
-Plug 'https://github.com/neoclide/coc.nvim'  " Auto Completion
-Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
-Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
-Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
+Plug 'NLKNguyen/papercolor-theme' " Theme
+Plug 'tpope/vim-surround' " Surrounding ysw)
+Plug 'preservim/nerdtree' " NerdTree
+Plug 'tpope/vim-commentary' " For Commenting gcc & gc
+Plug 'vim-airline/vim-airline' " Status bar
+Plug 'lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
+Plug 'ap/vim-css-color' " CSS Color Preview
+Plug 'rafi/awesome-vim-colorschemes' " Retro Scheme
+Plug 'neoclide/coc.nvim'  " Auto Completion
+Plug 'ryanoasis/vim-devicons' " Developer Icons
+Plug 'tc50cal/vim-terminal' " Vim Terminal
+Plug 'preservim/tagbar' " Tagbar for code navigation
+Plug 'terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'tveskag/nvim-blame-line' " A small plugin that uses neovims virtual text to print git blame info at the end of the current line.
 Plug 'numkil/ag.nvim' " A code searching tool similar to ack, with a focus on speed.
 Plug 'sbdchd/neoformat' " A (Neo)vim plugin for formatting code.
