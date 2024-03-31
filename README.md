@@ -48,19 +48,26 @@ Before install plugins and start to use them intall dependencies.
 For Fedora:
 
 ```console
-$ sudo dnf isntall python-neovim
+sudo dnf install python-neovim
 ```
 
 For Debian:
 
 ```console
-$ sudo apt install python3-neovim
+sudo apt install python3-neovim
 ```
 
-Also do not forget install `build/index.js` builds:
+After install plugins you need to install coc.nvim's build. For that purpose go to the `~/.local/share/nvim/plugged/coc.nvim/build` and start yarn building process:
 
 ```console
-$ yarn install
+yarn install
+```
+
+#### Some extensions for coc.nvim:
+
+- TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`. For example, `[coc-prettier](https://github.com/neoclide/coc-prettier)`:
+```console
+:CocInstall coc-tsserver
 ```
 
 #### Do not forget to install Silver Searcher
@@ -70,13 +77,13 @@ Depending on your Linux distribution, use one of the following methods to instal
 On Debian and Ubuntu, use the following command:
 
 ```console
-$ sudo apt install silversearcher-ag
+sudo apt install silversearcher-ag
 ```
 
 On AlmaLinux, CentOS 8 or later, and Fedora, use the following command:
 
 ```console
-$ sudo dnf install the_silver_searcher
+sudo dnf install the_silver_searcher
 ```
 
 #### Help records:
