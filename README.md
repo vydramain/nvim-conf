@@ -88,7 +88,6 @@ sudo dnf install the_silver_searcher
 
 #### Help records:
  - `:CocConfig` command runs coc configuration.
- - TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`
  - Default autocomplete is annoying since it’s controlled by arrow keys to select. Read [completion with sources](https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources) to configure it to tab.
 
 #### How to debug note:
