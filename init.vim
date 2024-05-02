@@ -70,6 +70,9 @@ nnoremap <C-l> :call CocActionAsync('jumpDefinition')<CR>
 nnoremap <silent> <leader>eb :ToggleBlameLine<CR>
 nnoremap <silent> <leader>db :DisableBlameLine<CR>
 
+" To navigate the completion list:
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#next(1) : "\<S-Tab>"
+
 nmap <F8> :TagbarToggle<CR>
 
 set completeopt-=preview " For No Previews
