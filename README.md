@@ -48,7 +48,7 @@ Before install plugins and start to use them intall dependencies.
 For Fedora:
 
 ```console
-sudo dnf isntall python-neovim
+sudo dnf install python-neovim
 ```
 
 For Debian:
@@ -77,13 +77,13 @@ Depending on your Linux distribution, use one of the following methods to instal
 On Debian and Ubuntu, use the following command:
 
 ```console
-$ sudo apt install silversearcher-ag
+sudo apt install silversearcher-ag
 ```
 
 On AlmaLinux, CentOS 8 or later, and Fedora, use the following command:
 
 ```console
-$ sudo dnf install the_silver_searcher
+sudo dnf install the_silver_searcher
 ```
 
 #### Help records:

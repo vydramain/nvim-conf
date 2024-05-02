@@ -22,7 +22,7 @@
 "   Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "
 "   " On-demand loading
-"   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"   Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 "   Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "
 "   " Using a non-default branch
@@ -2810,3 +2810,4 @@ endif
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
+
