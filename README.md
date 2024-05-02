@@ -70,6 +70,22 @@ yarn install
 :CocInstall coc-tsserver
 ```
 
+#### Do not forget to install Silver Searcher
+
+Depending on your Linux distribution, use one of the following methods to install The Silver Searcher.
+
+On Debian and Ubuntu, use the following command:
+
+```console
+$ sudo apt install silversearcher-ag
+```
+
+On AlmaLinux, CentOS 8 or later, and Fedora, use the following command:
+
+```console
+$ sudo dnf install the_silver_searcher
+```
+
 #### Help records:
  - `:CocConfig` command runs coc configuration.
  - Default autocomplete is annoying since it’s controlled by arrow keys to select. Read [completion with sources](https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources) to configure it to tab.
@@ -93,6 +109,12 @@ For each project we need to create vimspector.json which contains information ab
 }
 ```
 
+### If you have issues with not recognizing headers
+
+Check ccls [FAQ](https://github.com/MaskRay/ccls/wiki/FAQ#some-cc-headers-are-not-recognized)
+
+Try to delete into the folder `/usr/lib/gcc/x86_64-linux-gnu/` all libraries with the largest version number than you use. 
+
 ---
 
 Inspirated by:
@@ -101,3 +123,4 @@ Inspirated by:
  - [Using (neo)vim for C++ development](https://idie.ru/posts/vim-modern-cpp/) by idie
  - [How I'm able to take notes in mathematics lectures using LaTeX and Vim](https://castel.dev/post/lecture-notes-1/)
  - [NeoVim for Typescript + React Development](https://medium.com/@s1n7ax/neovim-for-typescript-react-development-fdc7082c8a78) by s1n7ax
+ - [coc for C++ setup](https://codevion.github.io/#!vim/coc.md)
