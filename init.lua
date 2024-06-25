@@ -4,6 +4,9 @@ local Plug = vim.fn['plug#']
 -- Plugin Section
 vim.call('plug#begin')
 
+ Plug('vim-scripts/c.vim')                                              -- Statement oriented editing of  C / C++ programs
+ Plug('vim-scripts/DoxygenToolkit.vim')                                 -- Usefull tools for Doxygen (comment, author, license)
+
  Plug('dracula/vim')                                                 	-- Theme for Neovim.
  Plug('ryanoasis/vim-devicons')                                      	-- Devicon support for nerdtree. 
  Plug('SirVer/ultisnips')                                            	-- ASnippets engine.                                            
@@ -18,7 +21,7 @@ vim.call('plug#begin')
  Plug('tc50cal/vim-terminal')                                        	-- Vim Terminal
  Plug('preservim/tagbar')                                            	-- Tagbar for code navigation
  Plug('sbdchd/neoformat')                                            	-- A (Neo)vim plugin for formatting code.
- -- Plug 'deoplete-plugins/deoplete-clang')                             -- To provide C++/C code autocompletion
+ Plug('deoplete-plugins/deoplete-clang')                                -- To provide C++/C code autocompletion
 
  Plug('vim-airline/vim-airline')                                      	-- Status bar
  Plug('rafi/awesome-vim-colorschemes')                                	-- Colorschemens
@@ -119,16 +122,16 @@ vim.api.nvim_set_keymap('n', '<F8>', ':TagbarToggle<CR>', { noremap = true })
 -- no select by `"suggest.noselect": true` in your configuration file
 -- NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 -- other plugin before putting this into your config
-vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? coc#_select_confirm() : CheckBackspace() ? "<Tab>" : "<C-x><C-o>"', { expr = true, silent = true })
-vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? coc#_select_confirm("<C-p>") : "<C-h>"', { expr = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? coc#_select_confirm() : CheckBackspace() ? "<Tab>" : "<C-x><C-o>"', { expr = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? coc#_select_confirm("<C-p>") : "<C-h>"', { expr = true, silent = true })
 
 -- Make <CR> to accept selected completion item or notify coc.nvim to format
 -- <C-g>u breaks current undo, please make your own choice
-vim.api.nvim_set_keymap('i', '<CR>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], { silent = true, expr = true })
-function CheckBackspace()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col) == ' '
-end
+-- vim.api.nvim_set_keymap('i', '<CR>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], { silent = true, expr = true })
+-- function CheckBackspace()
+--     local col = vim.fn.col('.') - 1
+--     return col == 0 or vim.fn.getline('.'):sub(col, col) == ' '
+-- end
 
 -- Use <c-space> to trigger completion
 if vim.fn.has('nvim') == 1 then
@@ -165,8 +168,8 @@ vim.cmd('autocmd CursorHold * silent call CocActionAsync("highlight")')
 vim.api.nvim_set_keymap('n', '<leader>rn', '<Plug>(coc-rename)', { silent = true })
 
 -- Formatting selected code
-vim.api.nvim_set_keymap('x', '<leader>f', '<Plug>(coc-format-selected)', { silent = true })
-vim.api.nvim_set_keymap('n', '<leader>f', '<Plug>(coc-format-selected)', { silent = true })
+-- vim.api.nvim_set_keymap('x', '<leader>f', '<Plug>(coc-format-selected)', { silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>f', '<Plug>(coc-format-selected)', { silent = true })
 
 -- Setup formatexpr specified filetype(s)
 vim.cmd([[
@@ -237,6 +240,15 @@ vim.cmd('command! -nargs=0 OR :call CocActionAsync("runCommand", "editor.action.
 -- provide custom statusline: lightline.vim, vim-airline
 vim.o.statusline = [[%{coc#status()}%{get(b:,'coc_current_function','')}]]
 
+-- Use <Tab> for completion and snippet expansion.
+vim.cmd [[
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+]]
+
 -- Mappings for CoCList
 -- Show all diagnostics
 vim.api.nvim_set_keymap('n', '<silent><nowait> <space>a', ':<C-u>CocList diagnostics<CR>', { silent = true })
@@ -255,13 +267,19 @@ vim.api.nvim_set_keymap('n', '<silent><nowait> <space>k', ':<C-u>CocPrev<CR>', {
 -- Resume latest coc list
 vim.api.nvim_set_keymap('n', '<silent><nowait> <space>p', ':<C-u>CocListResume<CR>', { silent = true })
 
+-- DoxygenToolkit set up
+vim.g.DoxygenToolkit_commentType = "C++"
+vim.g.DoxygenToolKit_briefTag_pre = "\brief"
+vim.g.DoxygenToolKit_noteTag_pre = "\note"
+vim.grDoxygenToolKit_detailsTag_pre = "\\details"
+
 -- Custom setting for clangformat
-vim.g.neoformat_cpp_clangformat = {
-    exe = 'clang-format',
-    args = {'-i', '--style=file'}
-}
-vim.g.neoformat_enabled_cpp = {'clangformat'}
-vim.g.neoformat_enabled_c = {'clangformat'}
+-- vim.g.neoformat_cpp_clangformat = {
+--     exe = 'clang-format',
+--     args = {'-i', '--style=file'}
+-- }
+-- vim.g.neoformat_enabled_cpp = {'clangformat'}
+-- vim.g.neoformat_enabled_c = {'clangformat'}
 
 -- Debug Adapter Protocol configuration
 local dap = require("dap")
