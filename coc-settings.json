@@ -4,7 +4,7 @@
   "languageserver": {
     "ccls": {
       "command": "ccls",
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "filetypes": ["c", "cc", "cpp", "objc", "objcpp"],
       "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
       "trace.server": "verbose",
       "initializationOptions": {
@@ -15,3 +15,4 @@
     }
   }
 }
+
