@@ -45,6 +45,11 @@ The following content is `init.vim` temp-file content. The description is in the
 
 Before install plugins and start to use them intall dependencies.
 
+For Arch:
+```console
+yay python-pynvim
+```
+
 For Fedora:
 
 ```console
@@ -74,16 +79,21 @@ yarn install
 
 Depending on your Linux distribution, use one of the following methods to install The Silver Searcher.
 
-On Debian and Ubuntu, use the following command:
-
+On Arch:
 ```console
-sudo apt install silversearcher-ag
+yay the_silver_searcher
 ```
 
 On AlmaLinux, CentOS 8 or later, and Fedora, use the following command:
 
 ```console
 sudo dnf install the_silver_searcher
+```
+
+On Debian and Ubuntu, use the following command:
+
+```console
+sudo apt install silversearcher-ag
 ```
 
 #### Help records:
