@@ -62,6 +62,14 @@ For Debian:
 sudo apt install python3-neovim
 ```
 
+#### Plugins installation
+
+You need to open your nvim and run from it command
+
+```
+:PlugInstall
+```
+
 After install plugins you need to install coc.nvim's build. For that purpose go to the `~/.local/share/nvim/plugged/coc.nvim/build` and start yarn building process:
 
 ```console
