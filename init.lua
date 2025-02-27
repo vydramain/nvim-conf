@@ -59,17 +59,13 @@ vim.cmd('syntax on') 							                        -- Enable syntax highlightin
 vim.cmd('filetype plugin indent on') 					                -- Allow auto-indenting depending on file type
 vim.cmd('colorscheme jellybeans')					                    -- Theme
 
+vim.g.mapleader = "\\"
+
 -- Move line or visually selected block - alt+j/k
 vim.api.nvim_set_keymap('i', '<A-j>', '<Esc>:m .+1<CR>==gi', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<A-k>', '<Esc>:m .-2<CR>==gi', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<A-j>', ':m \'>+1<CR>gv=gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<A-k>', ':m \'<-2<CR>gv=gv', { noremap = true, silent = true })
-
--- Move split panes to left/bottom/top/right
-vim.api.nvim_set_keymap('n', '<A-h>', '<C-W>H', { noremap = true })
-vim.api.nvim_set_keymap('n', '<A-j>', '<C-W>J', { noremap = true })
-vim.api.nvim_set_keymap('n', '<A-k>', '<C-W>K', { noremap = true })
-vim.api.nvim_set_keymap('n', '<A-l>', '<C-W>L', { noremap = true })
 
 -- Move between panes to left/bottom/top/right
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
@@ -81,8 +77,6 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 vim.api.nvim_set_keymap('i', 'ii', '<Esc>', {})
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', {})
 vim.api.nvim_set_keymap('i', 'kj', '<Esc>', {})
-vim.api.nvim_set_keymap('v', 'jk', '<Esc>', {})
-vim.api.nvim_set_keymap('v', 'kj', '<Esc>', {})
 
 -- Open file in a text by placing text and gf
 vim.api.nvim_set_keymap('n', 'gf', ':vert winc f<CR>', { noremap = true })
@@ -109,6 +103,10 @@ vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFocus<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-l>', ':call CocActionAsync(\'jumpDefinition\')<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>sh', ':set splitbelow<CR>:split<CR>:buffer %<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sv', ':set splitright<CR>:vsplit<CR>:buffer %<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>nf', ':NERDTreeFind<CR>', { noremap = true, silent = true })
+
 
 -- Blame line keybindings
 vim.api.nvim_set_keymap('n', '<leader>eb', ':ToggleBlameLine<CR>', { noremap = true, silent = true })
