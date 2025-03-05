@@ -29,7 +29,6 @@ Files from this repository are keeping in the `~/.config/nvim` catalog.
  - [Cppman](https://github.com/aitjcize/cppman)
  - [Vim-Cpp-Modern](https://github.com/bfrg/vim-cpp-modern)
  - [Markdown-Preview](https://github.com/iamcco/markdown-preview.nvim)
-
 ## For start
 
 #### NeoVim Plugin Manager:

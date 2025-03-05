@@ -7,26 +7,38 @@ vim.call('plug#begin')
  Plug('vim-scripts/c.vim')                                              -- Statement oriented editing of  C / C++ programs
  Plug('vim-scripts/DoxygenToolkit.vim')                                 -- Usefull tools for Doxygen (comment, author, license)
 
- Plug('dracula/vim')                                                 	-- Theme for Neovim.
  Plug('ryanoasis/vim-devicons')                                      	-- Devicon support for nerdtree. 
- Plug('SirVer/ultisnips')                                            	-- ASnippets engine.                                            
- Plug('honza/vim-snippets')                                          	-- A collection of snippets
- Plug('scrooloose/nerdtree')                                         	-- A file explorer for neovim. Netrw comes as default for neovim.
- Plug('preservim/nerdcommenter')                                     	-- An easy way for commenting outlines. 
  Plug('mhinz/vim-startify')                                          	-- A really handy start page with lots of customizations
- Plug('neoclide/coc.nvim')		     	                     	        -- A fast code completion engine
-
- Plug('tveskag/nvim-blame-line')                                     	-- A small plugin that uses neovims virtual text to print git blame info at the end of the current line.
- Plug('numkil/ag.nvim')                                              	-- A code searching tool similar to ack, with a focus on speed.
+ Plug('honza/vim-snippets')                                          	-- A collection of snippets
  Plug('tc50cal/vim-terminal')                                        	-- Vim Terminal
- Plug('preservim/tagbar')                                            	-- Tagbar for code navigation
- Plug('sbdchd/neoformat')                                            	-- A (Neo)vim plugin for formatting code.
- Plug('deoplete-plugins/deoplete-clang')                                -- To provide C++/C code autocompletion
-
  Plug('vim-airline/vim-airline')                                      	-- Status bar
  Plug('rafi/awesome-vim-colorschemes')                                	-- Colorschemens
 
+ Plug('tveskag/nvim-blame-line')                                     	-- A small plugin that uses neovims virtual text to print git blame info at the end of the current line.
+
+ Plug('SirVer/ultisnips')                                            	-- ASnippets engine.                                            
+
+ Plug('scrooloose/nerdtree')                                         	-- A file explorer for neovim. Netrw comes as default for neovim.
+ Plug('preservim/nerdcommenter')                                     	-- An easy way for commenting outlines. 
+
+ Plug('numkil/ag.nvim')                                              	-- A code searching tool similar to ack, with a focus on speed.
+ Plug('stevearc/overseer.nvim')                                         -- A task runner and job management plugin for Neovim
+ Plug('nvim-lua/plenary.nvim')                                          -- All the lua functions I don't want to write twice
+
+ Plug('neoclide/coc.nvim')		     	                     	        -- A fast code completion engine
+ Plug('deoplete-plugins/deoplete-clang')                                -- To provide C++/C code autocompletion
+
+ Plug('Civitasv/cmake-tools.nvim')                                      -- CMake Tools for Neovim
+
  Plug('mfussenegger/nvim-dap')                                        	-- Debug Adapter Protocol client implementation
+ Plug('nvim-neotest/nvim-nio')                                          -- A library for asynchronous IO in Neovim, inspired by the asyncio library in Python. The library focuses on providing both common asynchronous primitives and asynchronous APIs for Neovim's core.
+ Plug('rcarriga/nvim-dap-ui')                                           -- A UI for nvim-dap which provides a good out of the box configuration.
+ Plug('theHamsta/nvim-dap-virtual-text')                                -- This plugin adds virtual text support to nvim-dap. nvim-treesitter is used to find variable definitions.
+
+ Plug('preservim/tagbar')                                            	-- Tagbar for code navigation
+
+ Plug('rhysd/vim-clang-format')                                         -- A (Neo)vim plugin for formatting code.
+
 
 vim.call('plug#end')
 
@@ -49,9 +61,9 @@ vim.o.smartindent = true 						                        -- Enable smart-indent
 vim.o.mouse = "a" 							                            -- Enable mouse click
 vim.o.clipboard = "unnamedplus" 					                    -- Use system clipboard
 vim.o.cursorline = true 						                        -- Highlight current cursorline
+vim.o.guicursor = 'a:hor90-Cursor-inverse/lCursor'			            -- Set cursor type to underline for normal mode
 vim.o.ttyfast = true 							                        -- Speed up scrolling in Vim
 vim.o.backspace = 'indent,eol,start'					                -- Backspace behavior
-vim.o.guicursor = 'a:hor100-Cursor-inverse/lCursor'			            -- Set cursor type to underline for normal mode
 vim.o.encoding = "UTF-8" 						                        -- Set encoding to UTF-8
 vim.o.background = "dark"						                        -- Set background to dark
 
@@ -87,6 +99,9 @@ vim.api.nvim_set_keymap('n', 'yf', ':let @+=expand(\'%:p\')<CR>', { noremap = tr
 -- Copies pwd to clipboard: command yd
 vim.api.nvim_set_keymap('n', 'yd', ':let @+=expand(\'%:p:h\')<CR>', { noremap = true })
 
+-- Add // commentary for current line
+vim.api.nvim_set_keymap('n', '<C-/>', 'I// <Esc>', { noremap = true, silent = true })
+
 -- Vim jump to the last position when reopening a file
 if vim.api.nvim_has_autocmd and vim.api.nvim_has_autocmd("BufReadPost") then
     vim.api.nvim_exec([[
@@ -97,15 +112,26 @@ if vim.api.nvim_has_autocmd and vim.api.nvim_has_autocmd("BufReadPost") then
     ]], false)
 end
 
+-- Formatting style options
+vim.g["clang_format#style_options"] = {
+  BasedOnStyle = "LLVM",
+  IndentWidth = 2,
+}
+
+-- Key mapping to toggle ClangFormat auto-formatting
+vim.api.nvim_set_keymap('n', '<leader>cf', ':ClangFormat<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>cf', ':ClangFormat<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>C', ':ClangFormatAutoToggle<CR>', { noremap = true, silent = true })
 
 -- NERDTree keybindings
 vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFocus<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-l>', ':call CocActionAsync(\'jumpDefinition\')<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>nf', ':NERDTreeFind<CR>', { noremap = true, silent = true })
+
+-- Split files view keybindings
 vim.api.nvim_set_keymap('n', '<leader>sh', ':set splitbelow<CR>:split<CR>:buffer %<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sv', ':set splitright<CR>:vsplit<CR>:buffer %<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>nf', ':NERDTreeFind<CR>', { noremap = true, silent = true })
 
 
 -- Blame line keybindings
@@ -114,6 +140,7 @@ vim.api.nvim_set_keymap('n', '<leader>db', ':DisableBlameLine<CR>', { noremap = 
 
 -- Coc configuration with keybindings
 -- https://raw.githubusercontent.com/neoclide/coc.nvim/master/doc/coc-example-config.lua
+vim.api.nvim_set_keymap('n', '<C-l>', ':call CocActionAsync(\'jumpDefinition\')<CR>', { noremap = true })
 
 -- Some servers have issues with backup files, see #649
 vim.opt.backup = false
@@ -300,19 +327,181 @@ keyset("n", "<space>k", ":<C-u>CocPrev<cr>", opts)
 -- Resume latest coc list
 keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
 
-
--- Debug Adapter Protocol configuration
-local dap = require("dap")
-dap.configurations.c = {
-  {
-    name = "Launch",
-    type = "gdb",
-    request = "launch",
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    cwd = "${workspaceFolder}",
-    stopAtBeginningOfMainSubprogram = false,
+-- Configuration from README from CMake Tools
+local osys = require("cmake-tools.osys")
+require("cmake-tools").setup {
+  cmake_command = "cmake", -- this is used to specify cmake command path
+  ctest_command = "ctest", -- this is used to specify ctest command path
+  cmake_use_preset = true,
+  cmake_regenerate_on_save = true, -- auto generate when save CMakeLists.txt
+  cmake_generate_options = { "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" }, -- this will be passed when invoke `CMakeGenerate`
+  cmake_build_options = {}, -- this will be passed when invoke `CMakeBuild`
+  -- support macro expansion:
+  --       ${kit}
+  --       ${kitGenerator}
+  --       ${variant:xx}
+  cmake_build_directory = function()
+    if osys.iswin32 then
+      return "out\\${variant:buildType}"
+    end
+    return "out/${variant:buildType}"
+  end, -- this is used to specify generate directory for cmake, allows macro expansion, can be a string or a function returning the string, relative to cwd.
+  cmake_soft_link_compile_commands = true, -- this will automatically make a soft link from compile commands file to project root dir
+  cmake_compile_commands_from_lsp = false, -- this will automatically set compile commands file location using lsp, to use it, please set `cmake_soft_link_compile_commands` to false
+  cmake_kits_path = nil, -- this is used to specify global cmake kits path, see CMakeKits for detailed usage
+  cmake_variants_message = {
+    short = { show = true }, -- whether to show short message
+    long = { show = true, max_length = 40 }, -- whether to show long message
   },
+  cmake_dap_configuration = { -- debug settings for cmake
+    name = "cpp",
+    type = "codelldb",
+    request = "launch",
+    stopOnEntry = false,
+    runInTerminal = true,
+    console = "integratedTerminal",
+  },
+  cmake_executor = { -- executor to use
+    name = "quickfix", -- name of the executor
+    opts = {}, -- the options the executor will get, possible values depend on the executor type. See `default_opts` for possible values.
+    default_opts = { -- a list of default and possible values for executors
+      quickfix = {
+        show = "always", -- "always", "only_on_error"
+        position = "belowright", -- "vertical", "horizontal", "leftabove", "aboveleft", "rightbelow", "belowright", "topleft", "botright", use `:h vertical` for example to see help on them
+        size = 10,
+        encoding = "utf-8", -- if encoding is not "utf-8", it will be converted to "utf-8" using `vim.fn.iconv`
+        auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
+      },
+      toggleterm = {
+        direction = "float", -- 'vertical' | 'horizontal' | 'tab' | 'float'
+        close_on_exit = false, -- whether close the terminal when exit
+        auto_scroll = true, -- whether auto scroll to the bottom
+        singleton = true, -- single instance, autocloses the opened one, if present
+      },
+      overseer = {
+        new_task_opts = {
+            strategy = {
+                "toggleterm",
+                direction = "horizontal",
+                auto_scroll = true,
+                quit_on_exit = "success"
+            }
+        }, -- options to pass into the `overseer.new_task` command
+        on_new_task = function(task)
+            require("overseer").open(
+                { enter = false, direction = "right" }
+            )
+        end,   -- a function that gets overseer.Task when it is created, before calling `task:start`
+      },
+      terminal = {
+        name = "Main Terminal",
+        prefix_name = "[CMakeTools]: ", -- This must be included and must be unique, otherwise the terminals will not work. Do not use a simple spacebar " ", or any generic name
+        split_direction = "horizontal", -- "horizontal", "vertical"
+        split_size = 11,
+
+        -- Window handling
+        single_terminal_per_instance = true, -- Single viewport, multiple windows
+        single_terminal_per_tab = true, -- Single viewport per tab
+        keep_terminal_static_location = true, -- Static location of the viewport if avialable
+        auto_resize = true, -- Resize the terminal if it already exists
+
+        -- Running Tasks
+        start_insert = false, -- If you want to enter terminal with :startinsert upon using :CMakeRun
+        focus = false, -- Focus on terminal when cmake task is launched.
+        do_not_add_newline = false, -- Do not hit enter on the command inserted when using :CMakeRun, allowing a chance to review or modify the command before hitting enter.
+      }, -- terminal executor uses the values in cmake_terminal
+    },
+  },
+  cmake_runner = { -- runner to use
+    name = "terminal", -- name of the runner
+    opts = {}, -- the options the runner will get, possible values depend on the runner type. See `default_opts` for possible values.
+    default_opts = { -- a list of default and possible values for runners
+      quickfix = {
+        show = "always", -- "always", "only_on_error"
+        position = "belowright", -- "bottom", "top"
+        size = 10,
+        encoding = "utf-8",
+        auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
+      },
+      toggleterm = {
+        direction = "float", -- 'vertical' | 'horizontal' | 'tab' | 'float'
+        close_on_exit = false, -- whether close the terminal when exit
+        auto_scroll = true, -- whether auto scroll to the bottom
+        singleton = true, -- single instance, autocloses the opened one, if present
+      },
+      overseer = {
+        new_task_opts = {
+            strategy = {
+                "toggleterm",
+                direction = "horizontal",
+                autos_croll = true,
+                quit_on_exit = "success"
+            }
+        }, -- options to pass into the `overseer.new_task` command
+        on_new_task = function(task)
+        end,   -- a function that gets overseer.Task when it is created, before calling `task:start`
+      },
+      terminal = {
+        name = "Main Terminal",
+        prefix_name = "[CMakeTools]: ", -- This must be included and must be unique, otherwise the terminals will not work. Do not use a simple spacebar " ", or any generic name
+        split_direction = "horizontal", -- "horizontal", "vertical"
+        split_size = 11,
+
+        -- Window handling
+        single_terminal_per_instance = true, -- Single viewport, multiple windows
+        single_terminal_per_tab = true, -- Single viewport per tab
+        keep_terminal_static_location = true, -- Static location of the viewport if avialable
+        auto_resize = true, -- Resize the terminal if it already exists
+
+        -- Running Tasks
+        start_insert = false, -- If you want to enter terminal with :startinsert upon using :CMakeRun
+        focus = false, -- Focus on terminal when cmake task is launched.
+        do_not_add_newline = false, -- Do not hit enter on the command inserted when using :CMakeRun, allowing a chance to review or modify the command before hitting enter.
+      },
+    },
+  },
+  cmake_notifications = {
+    runner = { enabled = true },
+    executor = { enabled = true },
+    spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }, -- icons used for progress display
+    refresh_rate_ms = 100, -- how often to iterate icons
+  },
+  cmake_virtual_text_support = true, -- Show the target related to current file using virtual text (at right corner)
 }
+
+-- nvim-dap configuration
+local dap = require('dap')
+local dapui = require('dapui')
+dapui.setup()
+
+-- Use the same config for C files
+dap.configurations.c = dap.configurations.cpp
+
+-- Open and close dap-ui automatically
+dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
+dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
+dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end
+
+-- nvim-dap-virtual-text configuration
+require('nvim-dap-virtual-text').setup()
+
+-- overseer.nvim configuration
+require('overseer').setup()
+
+-- coc.nvim configuration
+vim.cmd([[
+  " Use coc-clangd for C++ language server
+  let g:coc_global_extensions = ['coc-clangd']
+
+  " Map keys for nvim-dap
+  nmap <F5> <Cmd>lua require'dap'.continue()<CR>
+  nmap <F10> <Cmd>lua require'dap'.step_over()<CR>
+  nmap <F11> <Cmd>lua require'dap'.step_into()<CR>
+  nmap <F12> <Cmd>lua require'dap'.step_out()<CR>
+  nmap <Leader>b <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+  nmap <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+  nmap <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+  nmap <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
+  nmap <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
+]])
 
