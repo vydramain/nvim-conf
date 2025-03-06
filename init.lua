@@ -114,8 +114,24 @@ end
 
 -- Formatting style options
 vim.g["clang_format#style_options"] = {
-  BasedOnStyle = "LLVM",
-  IndentWidth = 2,
+    BasedOnStyle = "Google",
+    IndentWidth = 2,
+    ColumnLimit = 80,
+    UseTab = "Never",
+    AlignOperands = "true",
+    AlignAfterOpenBracket = "Align",
+    AlignConsecutiveAssignments = "true",
+    AllowAllParametersOfDeclarationOnNextLine = "true",
+    AllowShortFunctionsOnASingleLine = "Empty",
+    AllowShortFunctionsOnASingleLine = "All",
+    AllowShortIfStatementsOnASingleLine = "true",
+    BreakBeforeBraces = "Attach",
+    BreakBeforeParameters = true,
+    DerivePointerAlignment = false,
+    PointerAlignment = "Left",
+    SortIncludes = true,
+    SpaceAfterTemplateKeyword = false,
+    PointerAlignment = "Left",
 }
 
 -- Key mapping to toggle ClangFormat auto-formatting
