@@ -102,6 +102,11 @@ On Debian and Ubuntu, use the following command:
 ```console
 sudo apt install silversearcher-ag
 ```
+Also need to add:
+
+```console
+sudo apt install ripgrep
+```
 
 #### Help records:
  - `:CocConfig` command runs coc configuration.
