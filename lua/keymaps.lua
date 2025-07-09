@@ -1,22 +1,29 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-vim.g.mapleader = " "
+vim.g.mapleader = "\\"  -- Set leader key to backslash
 
--- File ops
-map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+-- File operations
+map("n", "<leader>t", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
 
--- LSP
+-- LSP keybindings
 map("n", "gd", vim.lsp.buf.definition, opts)
 map("n", "gr", vim.lsp.buf.references, opts)
 map("n", "K", vim.lsp.buf.hover, opts)
 map("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
--- DAP (debugger)
-map("n", "<F5>", ":lua require'dap'.continue()<CR>", opts)
-map("n", "<F10>", ":lua require'dap'.step_over()<CR>", opts)
-map("n", "<F11>", ":lua require'dap'.step_into()<CR>", opts)
-map("n", "<F12>", ":lua require'dap'.step_out()<CR>", opts)
+-- Debugging (DAP) keybindings
+map("n", "<F5>", function() require("dap").continue() end, opts)
+map("n", "<F10>", function() require("dap").step_over() end, opts)
+map("n", "<F11>", function() require("dap").step_into() end, opts)
+map("n", "<F12>", function() require("dap").step_out() end, opts)
+
+-- Add // comment on current line (Ctrl+/ mapped to Ctrl+_)
+map("n", "<C-_>", "I// <Esc>", opts)  -- <C-/> often sends <C-_> in terminals
+
+-- Git blame line keybindings
+map("n", "<leader>eb", ":ToggleBlameLine<CR>", opts)
+map("n", "<leader>db", ":DisableBlameLine<CR>", opts)
 
