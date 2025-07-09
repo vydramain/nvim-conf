@@ -13,3 +13,10 @@ vim.opt.wrap = false
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
 
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+

@@ -36,19 +36,24 @@ return {
 
   -- Git
   { "lewis6991/gitsigns.nvim", config = true },
+  { "tpope/vim-fugitive" },  -- classic git plugin, optional but useful
+
+  -- Git blame toggle plugin (needed for your blame keymaps)
+  {
+    "f-person/git-blame.nvim",
+    config = function()
+      vim.cmd [[let g:gitblame_enabled = 0]] -- disabled by default
+    end,
+  },
 
   -- Debugging
-  {
-    "nvim-neotest/nvim-nio",
-    -- no config needed, just install
-  },
+  { "nvim-neotest/nvim-nio" },  -- no config needed
   {
     "mfussenegger/nvim-dap",
     config = function()
       require("config.dap_config")
     end,
   },
-  { "nvim-neotest/nvim-nio" },
   { "rcarriga/nvim-dap-ui", config = true },
 
   -- Formatting
