@@ -112,8 +112,6 @@ This improves autocompletion, diagnostics, and navigation.
 | `F11`          | Step into                           |
 | `F12`          | Step out                            |
 
----
-
 ## Debugging
 
 - Uses GDB backend via `nvim-dap`.  
@@ -141,4 +139,3 @@ This improves autocompletion, diagnostics, and navigation.
 ---
 
 Happy coding with your Neovim-powered C++ IDE!
-

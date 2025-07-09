@@ -7,4 +7,3 @@ require("keymaps")
 
 -- Setup lazy plugin loader and loading plugins
 require("lazy").setup("plugins")
-
