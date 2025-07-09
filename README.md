@@ -1,143 +1,144 @@
-# nvim-conf
-My personal nvim configuration for quick start on another machine:
-How to setup NeoVim for React and Typescript development:
+# Neovim C++ IDE Configuration
 
-## Descripions:
-Files from this repository are keeping in the `~/.config/nvim` catalog.
-
-## Prerequisites:
-- [Git](https://git-scm.com/) (vim plug use git to clone vim/nvim plugins to the local computer)
-- [CMake](https://cmake.org/)
-- [Clang](https://clang.llvm.org/)
-- [Neovim](https://neovim.io/)
-- [Node](https://nodejs.org/en/) (coc extension require a javascript runtime to do the job)
-- [Yarn](https://yarnpkg.com/) (coc nvim using yarn to install packages)
-- [Python Package Index(PyPI)](https://developer.fedoraproject.org/tech/languages/python/pypi-installation.html)
-
-## Usages:
- - [Coc](https://github.com/neoclide/coc.nvim)
- - [Vim-TSX](https://github.com/ianks/vim-tsx)
- - [TypeScript-Vim](https://github.com/leafgarland/typescript-vim)
- - [Minimalist](https://github.com/dikiaap/minimalist)
- - [NERDTree](https://github.com/scrooloose/nerdtree)
- - [Vim-fswitch](https://github.com/derekwyatt/vim-fswitch)
- - [Vista.vim](https://github.com/liuchengxu/vista.vim)
- - [Vimspector](https://github.com/puremourning/vimspector)
- - [Vimtex](https://github.com/lervag/vimtex)
- - [UltiSnips](https://github.com/sirver/ultisnips)
- - [Vim-Snippets](https://github.com/honza/vim-snippets)
- - [Cppman](https://github.com/aitjcize/cppman)
- - [Vim-Cpp-Modern](https://github.com/bfrg/vim-cpp-modern)
- - [Markdown-Preview](https://github.com/iamcco/markdown-preview.nvim)
-## For start
-
-#### NeoVim Plugin Manager:
-
-- Download [vim-plug](https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim) file.
-- Place the plugin inside autoload folder: `/home/<user_folder>/.config/nvim/autoload/plug.vim`
-
-#### Required plugins:
-
-The following content is `init.vim` temp-file content. The description is in the comment. Highly recommend to read the wiki in [GitHub](https://github.com/neovim/neovim/wiki/Configuration) (For downloading s1n7ax's [complete configuration](https://github.com/s1n7ax/dotvim))
-
-#### Install dependencies
-
-Before install plugins and start to use them intall dependencies.
-
-For Arch:
-```console
-yay python-pynvim
-```
-
-For Fedora:
-
-```console
-sudo dnf install python-neovim
-```
-
-For Debian:
-
-```console
-sudo apt install python3-neovim
-```
-
-#### Plugins installation
-
-You need to open your nvim and run from it command
-
-```
-:PlugInstall
-```
-
-After install plugins you need to install coc.nvim's build. For that purpose go to the `~/.local/share/nvim/plugged/coc.nvim/build` and start yarn building process:
-
-```console
-yarn install
-```
-
-#### Some extensions for coc.nvim:
-
-- TSLint, Prettier, and TSServer extensions by default read project configuration files (.tslint, .prettier.config.js and tsconfig.json). Prettier TSLint capabilities can be enabled in the `:CocConfig`. For example, `[coc-prettier](https://github.com/neoclide/coc-prettier)`:
-```console
-:CocInstall coc-tsserver
-```
-
-#### Do not forget to install Silver Searcher
-
-Depending on your Linux distribution, use one of the following methods to install The Silver Searcher.
-
-On Arch:
-```console
-yay the_silver_searcher
-```
-
-On AlmaLinux, CentOS 8 or later, and Fedora, use the following command:
-
-```console
-sudo dnf install the_silver_searcher
-```
-
-On Debian and Ubuntu, use the following command:
-
-```console
-sudo apt install silversearcher-ag
-```
-
-#### Help records:
- - `:CocConfig` command runs coc configuration.
- - Default autocomplete is annoying since it’s controlled by arrow keys to select. Read [completion with sources](https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources) to configure it to tab.
-
-#### How to debug note:
-
-For each project we need to create vimspector.json which contains information about how to start a debugger session. This file is pretty simple, and you will usually just copy it between your projects with minimal changes. Here is an example content:
-
-```json
-{
-  "configurations": {
-    "Launch": {
-      "adapter": "vscode-cpptools",
-      "configuration": {
-        "request": "launch",
-        "program": "${gadgetDir}/vscode-cpptools/debugAdapters/bin/OpenDebugAD7",
-        "externalConsole": true
-      }
-    }
-  }
-}
-```
-
-### If you have issues with not recognizing headers
-
-Check ccls [FAQ](https://github.com/MaskRay/ccls/wiki/FAQ#some-cc-headers-are-not-recognized)
-
-Try to delete into the folder `/usr/lib/gcc/x86_64-linux-gnu/` all libraries with the largest version number than you use. 
+This repository provides a modular Neovim configuration optimized for C++ development, delivering an IDE-like experience similar to CLion.
 
 ---
 
-Inspirated by:
- - [Vim Awesome](https://vimawesome.com/)
- - [Vim Cheat Sheet](https://vim.rtorr.com/)
- - [Using (neo)vim for C++ development](https://idie.ru/posts/vim-modern-cpp/) by idie
- - [How I'm able to take notes in mathematics lectures using LaTeX and Vim](https://castel.dev/post/lecture-notes-1/)
- - [NeoVim for Typescript + React Development](https://medium.com/@s1n7ax/neovim-for-typescript-react-development-fdc7082c8a78) by s1n7ax
- - [coc for C++ setup](https://codevion.github.io/#!vim/coc.md)
+## Features
+
+- **LSP** with `clangd` for code completion, navigation, and diagnostics  
+- **Autocompletion** with `nvim-cmp` and snippet support (`LuaSnip`)  
+- **Syntax highlighting & indentation** powered by Treesitter  
+- **File explorer** via `nvim-tree`  
+- **Fuzzy search** using `telescope.nvim`  
+- **Git integration** through `gitsigns.nvim`  
+- **Formatting on save** via `clang-format` with `conform.nvim`  
+- **Debugging** support with `nvim-dap` and `nvim-dap-ui` (GDB backend)  
+
+---
+
+## Plugins Used (17 total)
+
+| Plugin                              | Purpose                       |
+|-------------------------------------|-------------------------------|
+| `nvim-lualine/lualine.nvim`         | Statusline UI                 |
+| `nvim-tree/nvim-tree.lua`           | File explorer                 |
+| `nvim-telescope/telescope.nvim`     | Fuzzy finder                  |
+| `nvim-lua/plenary.nvim`             | Telescope dependency          |
+| `hrsh7th/nvim-cmp`                  | Completion engine             |
+| `hrsh7th/cmp-nvim-lsp`              | LSP completion source         |
+| `L3MON4D3/LuaSnip`                  | Snippet engine                |
+| `saadparwaiz1/cmp_luasnip`          | Snippet completion source     |
+| `nvim-treesitter/nvim-treesitter`   | Syntax highlighting           |
+| `lewis6991/gitsigns.nvim`           | Git integration               |
+| `williamboman/mason.nvim`           | LSP/DAP installer             |
+| `williamboman/mason-lspconfig.nvim` | Mason extension for LSP       |
+| `neovim/nvim-lspconfig`             | LSP configurations            |
+| `mfussenegger/nvim-dap`             | Debug Adapter Protocol client |
+| `nvim-neotest/nvim-nio`             | Dependency for dap-ui         |
+| `rcarriga/nvim-dap-ui`              | Debugger UI                   |
+| `stevearc/conform.nvim`             | Formatter wrapper             |
+
+---
+
+## Prerequisites
+
+Make sure the following packages are installed on your Arch Linux system:
+
+| Package                                                                | Purpose                     | Installation Command     | More Info                                |
+|------------------------------------------------------------------------|-----------------------------|--------------------------|------------------------------------------|
+| [neovim](https://archlinux.org/packages/community/x86_64/neovim/)      | Text editor                 | `sudo pacman -S neovim`  | [Neovim](https://neovim.io/)             |
+| [clang](https://archlinux.org/packages/extra/x86_64/clang/)            | Compiler & `clangd` LSP     | `sudo pacman -S clang`   | [Clang](https://clang.llvm.org/)         |
+| [gdb](https://archlinux.org/packages/extra/x86_64/gdb/)                | Debugger                    | `sudo pacman -S gdb`     | [GDB](https://www.gnu.org/software/gdb/) |
+| [git](https://archlinux.org/packages/core/x86_64/git/)                 | Version control             | `sudo pacman -S git`     | [Git](https://git-scm.com/)              |
+
+*Note:* `clang-format` is included with `clang` on Arch Linux.
+
+---
+
+## Installation
+
+1. **Clone this repository** as your Neovim configuration:
+
+```bash
+git clone <your-repo-url> ~/.config/nvim
+```
+
+2. **Open Neovim**:
+
+```bash
+nvim
+```
+
+3. **Install plugins** with Lazy.nvim:
+
+```vim
+:Lazy sync
+```
+
+4. **Install `clangd` and other tools via Mason** inside Neovim (optional if not using system `clangd`):
+
+```vim
+:MasonInstall clangd
+```
+
+---
+
+## Project Setup
+
+- To enable accurate LSP features, generate a `compile_commands.json` file in your project root:
+
+```bash
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON <your-source-directory>
+```
+
+This improves autocompletion, diagnostics, and navigation.
+
+---
+
+## Keybindings
+
+| Keybinding     | Action                              |
+|----------------|-------------------------------------|
+| `<leader>e`    | Toggle file explorer (`nvim-tree`)  |
+| `<leader>ff`   | Find files (Telescope)              |
+| `<leader>fg`   | Live grep search (Telescope)        |
+| `gd`           | Go to definition                    |
+| `gr`           | List references                     |
+| `K`            | Show hover documentation            |
+| `<leader>rn`   | Rename symbol                       |
+| `F5`           | Start/continue debugging            |
+| `F10`          | Step over                           |
+| `F11`          | Step into                           |
+| `F12`          | Step out                            |
+
+---
+
+## Debugging
+
+- Uses GDB backend via `nvim-dap`.  
+- UI enhancements provided by `nvim-dap-ui`.  
+- GDB is required (`sudo pacman -S gdb`).  
+- Optionally use Microsoft’s `OpenDebugAD7` debugger from [vscode-cpptools](https://github.com/microsoft/vscode-cpptools).
+
+---
+
+## Troubleshooting
+
+- If you encounter errors about missing `nvim-nio`, ensure the plugin `nvim-neotest/nvim-nio` is installed.  
+- Avoid naming config files the same as plugins (e.g., rename `cmp.lua` to `cmp_config.lua`).  
+- Verify `clang-format` and `clangd` executables are available.  
+- Generate or update `compile_commands.json` to improve LSP accuracy.
+
+---
+
+## Customization
+
+- Add your own keymaps in `lua/keymaps.lua`.  
+- Extend or tweak LSP configs in `lua/config/lsp_config.lua`.  
+- Modify plugin list or settings in `lua/plugins/init.lua`.
+
+---
+
+Happy coding with your Neovim-powered C++ IDE!
+
