@@ -1,141 +1,356 @@
-# Neovim C++ IDE Configuration
+# Neovim Config
 
-This repository provides a modular Neovim configuration optimized for C++ development, delivering an IDE-like experience similar to CLion.
+Personal Neovim configuration for TypeScript/Node.js and C++ development.
+Built on [lazy.nvim](https://github.com/folke/lazy.nvim) with a modular structure.
 
 ---
 
 ## Features
 
-- **LSP** with `clangd` for code completion, navigation, and diagnostics  
-- **Autocompletion** with `nvim-cmp` and snippet support (`LuaSnip`)  
-- **Syntax highlighting & indentation** powered by Treesitter  
-- **File explorer** via `nvim-tree`  
-- **Fuzzy search** using `telescope.nvim`  
-- **Git integration** through `gitsigns.nvim`  
-- **Formatting on save** via `clang-format` with `conform.nvim`  
-- **Debugging** support with `nvim-dap` and `nvim-dap-ui` (GDB backend)  
-
----
-
-## Plugins Used (17 total)
-
-| Plugin                              | Purpose                       |
-|-------------------------------------|-------------------------------|
-| `nvim-lualine/lualine.nvim`         | Statusline UI                 |
-| `nvim-tree/nvim-tree.lua`           | File explorer                 |
-| `nvim-telescope/telescope.nvim`     | Fuzzy finder                  |
-| `nvim-lua/plenary.nvim`             | Telescope dependency          |
-| `hrsh7th/nvim-cmp`                  | Completion engine             |
-| `hrsh7th/cmp-nvim-lsp`              | LSP completion source         |
-| `L3MON4D3/LuaSnip`                  | Snippet engine                |
-| `saadparwaiz1/cmp_luasnip`          | Snippet completion source     |
-| `nvim-treesitter/nvim-treesitter`   | Syntax highlighting           |
-| `lewis6991/gitsigns.nvim`           | Git integration               |
-| `williamboman/mason.nvim`           | LSP/DAP installer             |
-| `williamboman/mason-lspconfig.nvim` | Mason extension for LSP       |
-| `neovim/nvim-lspconfig`             | LSP configurations            |
-| `mfussenegger/nvim-dap`             | Debug Adapter Protocol client |
-| `nvim-neotest/nvim-nio`             | Dependency for dap-ui         |
-| `rcarriga/nvim-dap-ui`              | Debugger UI                   |
-| `stevearc/conform.nvim`             | Formatter wrapper             |
+- **TypeScript / Node.js** — typescript-tools with organize imports, add missing imports, rename file with import updates, inlay hints
+- **C++** — clangd LSP with clang-tidy, codelldb debugger (auto-installed)
+- **Autocompletion** — nvim-cmp with LSP, snippets (LuaSnip + friendly-snippets), path and buffer sources
+- **Syntax highlighting** — Treesitter for TS/JS/TSX/C++/HTML/CSS and more
+- **File explorer** — neo-tree (VSCode-like sidebar)
+- **Fuzzy search** — Telescope with fzf-native backend
+- **Git UI** — gitsigns, Neogit (rebase, commit, branch), Diffview (diff review, file history)
+- **Debugging** — nvim-dap with DAP UI (auto-opens on session start)
+- **Formatting on save** — conform.nvim (prettier for TS/JS, clang-format for C++)
+- **Linting** — nvim-lint (eslint_d for TS/JS)
+- **Theme** — Catppuccin Mocha
 
 ---
 
 ## Prerequisites
 
-Make sure the following packages are installed on your Arch Linux system:
+Install the following before deploying the config.
 
-| Package                                                                | Purpose                     | Installation Command     | More Info                                |
-|------------------------------------------------------------------------|-----------------------------|--------------------------|------------------------------------------|
-| [neovim](https://archlinux.org/packages/community/x86_64/neovim/)      | Text editor                 | `sudo pacman -S neovim`  | [Neovim](https://neovim.io/)             |
-| [clang](https://archlinux.org/packages/extra/x86_64/clang/)            | Compiler & `clangd` LSP     | `sudo pacman -S clang`   | [Clang](https://clang.llvm.org/)         |
-| [gdb](https://archlinux.org/packages/extra/x86_64/gdb/)                | Debugger                    | `sudo pacman -S gdb`     | [GDB](https://www.gnu.org/software/gdb/) |
-| [git](https://archlinux.org/packages/core/x86_64/git/)                 | Version control             | `sudo pacman -S git`     | [Git](https://git-scm.com/)              |
+### Required
 
-*Note:* `clang-format` is included with `clang` on Arch Linux.
+| Tool | Purpose | Arch Linux | Ubuntu/Debian |
+|------|---------|------------|---------------|
+| `neovim >= 0.10` | Editor | `sudo pacman -S neovim` | [AppImage or PPA](https://github.com/neovim/neovim/releases) |
+| `git` | Plugin bootstrap & Neogit | `sudo pacman -S git` | `sudo apt install git` |
+| `make` | Build telescope-fzf-native | `sudo pacman -S make` | `sudo apt install make` |
+| `gcc` / `clang` | Build some plugins + clangd | `sudo pacman -S clang` | `sudo apt install clang` |
+| `ripgrep` | Telescope live grep | `sudo pacman -S ripgrep` | `sudo apt install ripgrep` |
+| `node` + `npm` | TypeScript LSP, eslint_d | `sudo pacman -S nodejs npm` | `sudo apt install nodejs npm` |
+
+### Recommended (installed automatically by Mason on first launch)
+
+Mason will auto-install LSP servers and tools into `~/.local/share/nvim/mason/`.
+No manual steps needed; the list is for reference only.
+
+| Tool | Purpose |
+|------|---------|
+| `clangd` | C++ LSP |
+| `ts_ls` | TypeScript/JavaScript LSP |
+| `eslint` | JS/TS linting via LSP |
+| `cssls` | CSS LSP |
+| `html` | HTML LSP |
+| `jsonls` | JSON LSP |
+| `lua_ls` | Lua LSP (for editing this config) |
+| `codelldb` | C/C++ debugger (LLDB) |
+| `prettier` | TS/JS/CSS/HTML formatter |
+| `stylua` | Lua formatter |
+| `eslint_d` | Fast eslint linter daemon |
 
 ---
 
 ## Installation
 
-1. **Clone this repository** as your Neovim configuration:
+### 1. Back up existing config (if any)
 
 ```bash
-git clone <your-repo-url> ~/.config/nvim
+mv ~/.config/nvim ~/.config/nvim.bak
+mv ~/.local/share/nvim ~/.local/share/nvim.bak   # optional: clears plugin cache
 ```
 
-2. **Open Neovim**:
+### 2. Clone the repository
+
+```bash
+git clone https://github.com/vydramain/nvim-config ~/.config/nvim
+```
+
+> Replace the URL with your actual repository URL.
+
+### 3. Launch Neovim
 
 ```bash
 nvim
 ```
 
-3. **Install plugins** with Lazy.nvim:
+On the first launch lazy.nvim will bootstrap itself, then install all plugins automatically.
+This takes 1–3 minutes depending on your connection.
+
+### 4. Install Mason tools
+
+After plugins finish installing, run inside Neovim:
 
 ```vim
-:Lazy sync
+:MasonInstall clangd ts_ls eslint cssls html jsonls lua_ls codelldb prettier stylua eslint_d
 ```
 
-4. **Install `clangd` and other tools via Mason** inside Neovim (optional if not using system `clangd`):
+Or open the Mason UI and install interactively:
 
 ```vim
-:MasonInstall clangd
+:Mason
+```
+
+### 5. Install Treesitter parsers (optional, auto-installed on file open)
+
+```vim
+:TSUpdate
+```
+
+### Verification
+
+Check that everything loaded correctly:
+
+```vim
+:Lazy        " plugin manager status
+:Mason       " LSP / tool status
+:LspInfo     " active LSP servers for current buffer
+:checkhealth " overall health check
 ```
 
 ---
 
-## Project Setup
+## C++ Project Setup
 
-- To enable accurate LSP features, generate a `compile_commands.json` file in your project root:
+For accurate diagnostics and navigation, generate a `compile_commands.json` in your project root.
 
+**CMake:**
 ```bash
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON <your-source-directory>
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B build
+ln -s build/compile_commands.json compile_commands.json
 ```
 
-This improves autocompletion, diagnostics, and navigation.
+**Bear (any build system):**
+```bash
+sudo pacman -S bear   # or: sudo apt install bear
+bear -- make
+```
+
+clangd will pick it up automatically.
+
+---
+
+## Config Structure
+
+```
+~/.config/nvim/
+├── init.lua                  # bootstrap lazy.nvim, load options + keymaps
+├── lua/
+│   ├── options.lua           # vim settings
+│   ├── keymaps.lua           # global keybindings
+│   └── plugins/
+│       ├── colorscheme.lua   # Catppuccin Mocha theme
+│       ├── ui.lua            # neo-tree, lualine, bufferline, which-key, trouble
+│       ├── telescope.lua     # fuzzy finder
+│       ├── treesitter.lua    # syntax highlighting + text objects
+│       ├── lsp.lua           # mason, LSP, typescript-tools, cmp, lint, format
+│       ├── git.lua           # gitsigns, neogit, diffview
+│       ├── debug.lua         # nvim-dap + codelldb
+│       └── editor.lua        # autopairs, comments, surround, ts-autotag
+```
+
+To add a plugin, create a new file in `lua/plugins/` or add a spec to an existing one.
+lazy.nvim loads every `.lua` file in that directory automatically.
 
 ---
 
 ## Keybindings
 
-| Keybinding     | Action                              |
-|----------------|-------------------------------------|
-| `<leader>e`    | Toggle file explorer (`nvim-tree`)  |
-| `<leader>ff`   | Find files (Telescope)              |
-| `<leader>fg`   | Live grep search (Telescope)        |
-| `gd`           | Go to definition                    |
-| `gr`           | List references                     |
-| `K`            | Show hover documentation            |
-| `<leader>rn`   | Rename symbol                       |
-| `F5`           | Start/continue debugging            |
-| `F10`          | Step over                           |
-| `F11`          | Step into                           |
-| `F12`          | Step out                            |
+`<leader>` is `Space`.
 
-## Debugging
+### Navigation
 
-- Uses GDB backend via `nvim-dap`.  
-- UI enhancements provided by `nvim-dap-ui`.  
-- GDB is required (`sudo pacman -S gdb`).  
-- Optionally use Microsoft’s `OpenDebugAD7` debugger from [vscode-cpptools](https://github.com/microsoft/vscode-cpptools).
+| Key | Action |
+|-----|--------|
+| `<C-h/j/k/l>` | Move between splits |
+| `<S-l>` / `<S-h>` | Next / previous buffer |
+| `<leader>bd` | Close buffer |
+| `<Esc>` | Clear search highlight |
+
+### File Explorer (neo-tree)
+
+| Key | Action |
+|-----|--------|
+| `<leader>e` | Toggle file explorer |
+| `a` (in tree) | Create file / directory |
+| `d` (in tree) | Delete |
+| `r` (in tree) | Rename |
+| `y` (in tree) | Copy |
+| `x` (in tree) | Cut |
+| `p` (in tree) | Paste |
+| `H` (in tree) | Toggle hidden files |
+| `?` (in tree) | Show all keymaps |
+
+### Telescope (Fuzzy Search)
+
+| Key | Action |
+|-----|--------|
+| `<leader>ff` | Find files |
+| `<leader>fg` | Live grep (search inside files) |
+| `<leader>fw` | Grep word under cursor |
+| `<leader>fb` | Open buffers |
+| `<leader>fr` | Recent files |
+| `<leader>fs` | Document symbols |
+| `<leader>fd` | Diagnostics |
+| `<leader>fh` | Help tags |
+| `<C-j>` / `<C-k>` | Move selection (inside Telescope) |
+| `<C-q>` | Send selection to quickfix list |
+
+### LSP
+
+| Key | Action |
+|-----|--------|
+| `gd` | Go to definition |
+| `gD` | Go to declaration |
+| `gr` | Go to references |
+| `gi` | Go to implementation |
+| `K` | Hover documentation |
+| `<C-k>` | Signature help (insert mode) |
+| `<leader>rn` | Rename symbol |
+| `<leader>ca` | Code action |
+| `<leader>D` | Show diagnostics for current line |
+| `[d` / `]d` | Previous / next diagnostic |
+| `<leader>fm` | Format file |
+
+### TypeScript (typescript-tools)
+
+| Key | Action |
+|-----|--------|
+| `<leader>oi` | Organize imports |
+| `<leader>ai` | Add all missing imports |
+| `<leader>ru` | Remove unused imports |
+| `<leader>rf` | Rename file + update all imports |
+| `<leader>fi` | Fix all auto-fixable issues |
+
+### Git
+
+| Key | Action |
+|-----|--------|
+| `<leader>gg` | Open Neogit (full git UI) |
+| `<leader>gd` | Open Diffview (current changes) |
+| `<leader>gh` | File history (current file) |
+| `<leader>gc` | Close Diffview |
+| `]h` / `[h` | Next / previous hunk |
+| `<leader>hs` | Stage hunk |
+| `<leader>hr` | Reset hunk |
+| `<leader>hS` | Stage entire buffer |
+| `<leader>hR` | Reset entire buffer |
+| `<leader>hb` | Full blame for current line |
+| `<leader>hd` | Diff this file |
+| `<leader>tb` | Toggle inline blame |
+
+#### Neogit workflow
+
+Open with `<leader>gg`. Inside Neogit:
+
+| Key | Action |
+|-----|--------|
+| `s` | Stage file / hunk |
+| `u` | Unstage file / hunk |
+| `c` | Open commit panel |
+| `l` | Open log / history |
+| `b` | Branch operations |
+| `r` | Rebase |
+| `P` | Push |
+| `F` | Pull / fetch |
+| `?` | Show all keymaps |
+| `q` | Close |
+
+### Debugging (nvim-dap)
+
+| Key | Action |
+|-----|--------|
+| `<F5>` | Start / continue |
+| `<F10>` | Step over |
+| `<F11>` | Step into |
+| `<F12>` | Step out |
+| `<leader>bp` | Toggle breakpoint |
+| `<leader>bP` | Conditional breakpoint |
+| `<leader>du` | Toggle DAP UI |
+| `<leader>dr` | Open REPL |
+| `<leader>dl` | Run last configuration |
+
+The DAP UI opens automatically when a debug session starts and closes when it ends.
+
+For C++, on first debug run you will be prompted for the path to your compiled binary.
+
+### Diagnostics (Trouble)
+
+| Key | Action |
+|-----|--------|
+| `<leader>xx` | All project diagnostics |
+| `<leader>xd` | Current file diagnostics |
+| `<leader>xl` | Location list |
+| `<leader>xq` | Quickfix list |
+
+### Editor
+
+| Key | Action |
+|-----|--------|
+| `gcc` | Toggle comment (line) |
+| `gc` + motion | Toggle comment (visual / motion) |
+| `ys` + motion + char | Add surrounding (e.g. `ysiw"`) |
+| `cs` + old + new | Change surrounding (e.g. `cs'"`) |
+| `ds` + char | Delete surrounding (e.g. `ds"`) |
+
+### Text Objects (Treesitter)
+
+These work with operators like `d`, `c`, `v`, `y`:
+
+| Object | Selects |
+|--------|---------|
+| `af` / `if` | outer / inner function |
+| `ac` / `ic` | outer / inner class |
+| `aa` / `ia` | outer / inner argument |
+
+**Examples:** `daf` — delete entire function; `cif` — change function body; `vac` — select class.
+
+Movement: `]f` / `[f` jump to next/previous function; `]c` / `[c` jump to next/previous class.
 
 ---
 
 ## Troubleshooting
 
-- If you encounter errors about missing `nvim-nio`, ensure the plugin `nvim-neotest/nvim-nio` is installed.  
-- Avoid naming config files the same as plugins (e.g., rename `cmp.lua` to `cmp_config.lua`).  
-- Verify `clang-format` and `clangd` executables are available.  
-- Generate or update `compile_commands.json` to improve LSP accuracy.
+**Plugins not loading**
+Run `:Lazy sync` to re-install. Check `:Lazy` for errors.
+
+**LSP not attaching**
+Run `:LspInfo` to see which servers are active. Run `:Mason` to verify tools are installed.
+For C++, make sure `compile_commands.json` exists in the project root.
+
+**TypeScript LSP slow or not starting**
+typescript-tools requires `node` on your PATH. Verify with `node --version`.
+
+**codelldb not found (C++ debug)**
+Run `:MasonInstall codelldb` or open `:Mason` and install it from there.
+
+**Telescope live grep not working**
+`ripgrep` must be installed. Verify with `rg --version`.
+
+**fzf-native not built**
+`make` must be available. Run `:Lazy build telescope-fzf-native.nvim` to rebuild.
+
+**Formatter not running on save**
+Check `:ConformInfo` to see which formatter is configured for the current filetype and whether it is found on PATH.
 
 ---
 
-## Customization
+## Updating
 
-- Add your own keymaps in `lua/keymaps.lua`.  
-- Extend or tweak LSP configs in `lua/config/lsp_config.lua`.  
-- Modify plugin list or settings in `lua/plugins/init.lua`.
+Update all plugins:
 
----
+```vim
+:Lazy update
+```
 
-Happy coding with your Neovim-powered C++ IDE!
+Update Mason tools:
+
+```vim
+:MasonUpdate
+```
