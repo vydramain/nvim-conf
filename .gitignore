@@ -1,0 +1,18 @@
+# ── lazy.nvim submodule (legacy, replaced by stdpath bootstrap) ───────────────
+lazy/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editor swap / backup / undo files ─────────────────────────────────────────
+*.swp
+*.swo
+*~
+*.bak
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+
+# NOTE: lazy-lock.json is intentionally NOT ignored.
+# Committing it pins exact plugin versions for reproducible installs across machines.
