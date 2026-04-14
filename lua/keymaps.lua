@@ -16,6 +16,8 @@ map("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- Buffer navigation
 map("n", "<S-l>", ":bnext<CR>", opts)
 map("n", "<S-h>", ":bprev<CR>", opts)
+map("n", "gt",    ":BufferLineCycleNext<CR>", opts)
+map("n", "gT",    ":BufferLineCyclePrev<CR>", opts)
 map("n", "<leader>bd", ":bd<CR>", { noremap = true, silent = true, desc = "Close buffer" })
 
 -- File explorer
