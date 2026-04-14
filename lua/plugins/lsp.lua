@@ -64,7 +64,6 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      local lspconfig    = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       -- Diagnostic UI
@@ -76,10 +75,14 @@ return {
         underline     = true,
       })
 
-      -- C++ (clangd)
-      lspconfig.clangd.setup({
+      -- Common defaults for all servers
+      vim.lsp.config("*", {
         capabilities = capabilities,
         on_attach    = on_attach,
+      })
+
+      -- C++ (clangd)
+      vim.lsp.config("clangd", {
         cmd = {
           "clangd",
           "--background-index",
@@ -90,16 +93,8 @@ return {
         },
       })
 
-      -- CSS
-      lspconfig.cssls.setup({ capabilities = capabilities, on_attach = on_attach })
-
-      -- HTML
-      lspconfig.html.setup({ capabilities = capabilities, on_attach = on_attach })
-
       -- JSON with schema support
-      lspconfig.jsonls.setup({
-        capabilities = capabilities,
-        on_attach    = on_attach,
+      vim.lsp.config("jsonls", {
         settings = {
           json = {
             schemas = require("schemastore").json.schemas(),
@@ -109,8 +104,7 @@ return {
       })
 
       -- ESLint (auto-fix on save)
-      lspconfig.eslint.setup({
-        capabilities = capabilities,
+      vim.lsp.config("eslint", {
         on_attach = function(client, bufnr)
           on_attach(client, bufnr)
           vim.api.nvim_create_autocmd("BufWritePre", {
@@ -121,9 +115,7 @@ return {
       })
 
       -- Lua (nvim config)
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-        on_attach    = on_attach,
+      vim.lsp.config("lua_ls", {
         settings = {
           Lua = {
             diagnostics = { globals = { "vim" } },
@@ -135,6 +127,8 @@ return {
           },
         },
       })
+
+      vim.lsp.enable({ "clangd", "cssls", "html", "jsonls", "eslint", "lua_ls" })
     end,
   },
 
