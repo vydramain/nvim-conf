@@ -18,7 +18,7 @@ map("n", "<S-l>", ":bnext<CR>", opts)
 map("n", "<S-h>", ":bprev<CR>", opts)
 map("n", "gt",    ":BufferLineCycleNext<CR>", opts)
 map("n", "gT",    ":BufferLineCyclePrev<CR>", opts)
-map("n", "<leader>bd", ":bd<CR>", { noremap = true, silent = true, desc = "Close buffer" })
+map("n", "<leader>bd", ":Bdelete<CR>", { noremap = true, silent = true, desc = "Close buffer" })
 
 -- File explorer
 map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "Toggle file tree" })

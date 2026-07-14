@@ -1,4 +1,10 @@
 return {
+  -- Delete buffers without closing the window/split (keeps layout intact)
+  {
+    "famiu/bufdelete.nvim",
+    cmd = { "Bdelete", "Bwipeout" },
+  },
+
   -- Auto-close brackets, quotes, etc.
   {
     "windwp/nvim-autopairs",
