@@ -1,10 +1,11 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master", -- config below uses the master-branch API (main is an incompatible rewrite)
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "master" },
     },
     config = function()
       require("nvim-treesitter").setup({

@@ -42,6 +42,13 @@ map("n", "K",  vim.lsp.buf.hover,             { desc = "Hover docs" })
 map("n", "<leader>rn", vim.lsp.buf.rename,    { desc = "Rename symbol" })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 map("n", "<leader>D",  vim.diagnostic.open_float, { desc = "Show diagnostics" })
+map("n", "<leader>dy", function()
+  local diags = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
+  if #diags == 0 then return end
+  local msg = table.concat(vim.tbl_map(function(d) return d.message end, diags), "\n")
+  vim.fn.setreg("+", msg)
+  vim.notify("Copied: " .. msg, vim.log.levels.INFO)
+end, { desc = "Copy diagnostic message" })
 map("n", "[d", vim.diagnostic.goto_prev,      { desc = "Prev diagnostic" })
 map("n", "]d", vim.diagnostic.goto_next,      { desc = "Next diagnostic" })
 

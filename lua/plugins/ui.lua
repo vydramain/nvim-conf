@@ -11,7 +11,7 @@ return {
     config = function()
       require("lualine").setup({
         options = {
-          theme = "catppuccin",
+          theme = "catppuccin-mocha",
           component_separators = "|",
           section_separators = { left = "", right = "" },
           globalstatus = true,
