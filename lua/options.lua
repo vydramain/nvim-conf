@@ -10,6 +10,18 @@ opt.shiftwidth = 2
 opt.expandtab = true
 opt.smartindent = true
 
+-- C/C++ follow the kernel-style ~/.clang-format: real tabs displayed 8 wide,
+-- otherwise clang-format's continuation alignment (tabs + spaces) looks broken
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp" },
+  callback = function()
+    vim.opt_local.expandtab = false
+    vim.opt_local.tabstop = 8
+    vim.opt_local.shiftwidth = 8
+    vim.opt_local.softtabstop = 8
+  end,
+})
+
 -- Display
 opt.termguicolors = true
 opt.cursorline = true
