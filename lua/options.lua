@@ -10,15 +10,17 @@ opt.shiftwidth = 2
 opt.expandtab = true
 opt.smartindent = true
 
--- C/C++ follow the kernel-style ~/.clang-format: real tabs displayed 8 wide,
--- otherwise clang-format's continuation alignment (tabs + spaces) looks broken
+-- C/C++ follow ~/.clang-format (Linux-Kernel-Inspired Readable C++ Style):
+-- real tabs displayed 4 wide; the 128-column limit is a convention enforced
+-- visually (colorcolumn), not by clang-format (ColumnLimit: 0 keeps manual breaks)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp" },
   callback = function()
     vim.opt_local.expandtab = false
-    vim.opt_local.tabstop = 8
-    vim.opt_local.shiftwidth = 8
-    vim.opt_local.softtabstop = 8
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.colorcolumn = "128"
   end,
 })
 
