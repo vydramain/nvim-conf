@@ -22,6 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("options")
 require("keymaps")
+require("clang-style")
 
 require("lazy").setup("plugins", {
   checker = { enabled = true, notify = false },

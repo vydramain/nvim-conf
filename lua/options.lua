@@ -10,9 +10,11 @@ opt.shiftwidth = 2
 opt.expandtab = true
 opt.smartindent = true
 
--- C/C++ follow ~/.clang-format (Linux-Kernel-Inspired Readable C++ Style):
--- real tabs displayed 4 wide; the 128-column limit is a convention enforced
--- visually (colorcolumn), not by clang-format (ColumnLimit: 0 keeps manual breaks)
+-- C/C++: Linux-Kernel-Inspired Readable C++ Style. The canonical
+-- .clang-format/.clang-tidy live in <config>/templates and are copied into a
+-- repository with :ClangStyleInit (see lua/clang-style.lua). Real tabs shown
+-- 4 wide; the 128-column limit is a convention enforced visually, not by
+-- clang-format (ColumnLimit: 0 keeps manual line breaks)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp" },
   callback = function()
@@ -20,7 +22,8 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.tabstop = 4
     vim.opt_local.shiftwidth = 4
     vim.opt_local.softtabstop = 4
-    vim.opt_local.colorcolumn = "128"
+    -- 129 = first forbidden column: a full 128-char line fits left of the bar
+    vim.opt_local.colorcolumn = "129"
   end,
 })
 

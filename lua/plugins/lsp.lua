@@ -276,10 +276,20 @@ return {
           cpp             = { "clang_format" },
           c               = { "clang_format" },
         },
-        format_on_save = {
-          timeout_ms   = 2000,
-          lsp_fallback = true,
-        },
+        -- C/C++ are formatted only when a .clang-format exists up the tree
+        -- (created per-repo with :ClangStyleInit). Without one clang-format
+        -- silently falls back to LLVM style (2 spaces) — never format blindly.
+        format_on_save = function(bufnr)
+          local ft = vim.bo[bufnr].filetype
+          if ft == "c" or ft == "cpp" then
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            local dir = fname ~= "" and vim.fs.dirname(fname) or vim.fn.getcwd()
+            if not vim.fs.find(".clang-format", { upward = true, path = dir })[1] then
+              return nil
+            end
+          end
+          return { timeout_ms = 2000, lsp_fallback = true }
+        end,
       })
     end,
   },
