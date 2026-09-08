@@ -9,4 +9,5 @@
 --   git.lua          – gitsigns, neogit, diffview
 --   debug.lua        – nvim-dap + codelldb for C++
 --   editor.lua       – autopairs, comments, surround, ts-autotag
+--   claude.lua       – claudecode.nvim (Claude Code integration)
 return {}

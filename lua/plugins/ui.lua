@@ -134,6 +134,7 @@ return {
         { "<leader>o", group = "TypeScript" },
         { "<leader>a", group = "TypeScript" },
         { "<leader>r", group = "TypeScript / Rename" },
+        { "<leader>c", group = "Claude Code" },
       })
     end,
   },
